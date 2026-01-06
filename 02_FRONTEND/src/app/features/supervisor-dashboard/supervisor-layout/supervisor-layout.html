@@ -1,0 +1,39 @@
+<div class="supervisor-container">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <h2>Supervisor Portal</h2>
+    </div>
+    
+    <nav class="nav-menu">
+      <a routerLink="dept-list" routerLinkActive="active-link">
+        Assign Grievances
+      </a>
+      <a routerLink="close-grievance" routerLinkActive="active-link">
+        Close Grievances
+      </a>
+      <a routerLink="dept-details" routerLinkActive="active-link">
+        Department Details
+      </a>
+      <a routerLink="reports" routerLinkActive="active" class="nav-item">
+    <span class="icon">📊</span>
+    <span class="label">Reports & Analytics</span>
+  </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="logout-btn" (click)="onLogout()">
+        Logout
+      </button>
+    </div>
+  </aside>
+
+  <main class="main-workspace">
+    <header class="top-nav">
+      <h1>Supervisor Dashboard</h1>
+    </header>
+    
+    <section class="content-body">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>

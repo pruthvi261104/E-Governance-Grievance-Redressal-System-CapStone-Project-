@@ -1,0 +1,70 @@
+<div class="officer-portal">
+  <h2>My New Assignments</h2>
+  <p class="subtitle">Grievances assigned to you by the supervisor that require your attention.</p>
+
+  <div class="search-container">
+    <input class="search-input" (keyup)="applyFilter($event)" placeholder="Search grievances by ID, Title or Category..." #input>
+  </div>
+
+  <div class="table-container shadow-sm">
+    <table mat-table [dataSource]="dataSource" matSort class="grievance-table" *ngIf="grievances.length > 0; else emptyState">
+
+      <ng-container matColumnDef="grievanceId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let g"> #{{ g.grievanceId }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> DETAILS </th>
+        <td mat-cell *matCellDef="let g">
+          <div class="title">{{ g.title }}</div>
+          <div class="desc-preview">{{ g.description | slice:0:50 }}...</div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="categoryName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> CATEGORY </th>
+        <td mat-cell *matCellDef="let g">
+          <span class="category-tag">{{ g.categoryName }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> STATUS </th>
+        <td mat-cell *matCellDef="let g">
+          <span class="badge assigned">{{ g.status }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> ACTION </th>
+        <td mat-cell *matCellDef="let g">
+          <button class="btn-update" (click)="navigateToResolution()">
+            Update Progress
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell empty-search" colspan="5">No assignments matching the search: "{{input.value}}"</td>
+      </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of assignments"></mat-paginator>
+
+    <ng-template #emptyState>
+      <div class="empty-msg" *ngIf="!isLoading">
+        <p>No new assignments found. Check back later.</p>
+      </div>
+    </ng-template>
+
+    <div *ngIf="isLoading" class="loader">
+      <div class="spinner"></div>
+      <p>Loading assigned grievances...</p>
+    </div>
+  </div>
+</div>
+

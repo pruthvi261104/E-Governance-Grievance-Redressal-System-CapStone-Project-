@@ -1,0 +1,88 @@
+<div class="dashboard-container">
+  <h2>Assign User Roles</h2>
+
+  <div class="table-actions">
+    <div class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm" 
+        (input)="applyFilter()" 
+        placeholder="Search users by name, email, or role..." 
+        class="search-input"
+      />
+    </div>
+  </div>
+
+  <div class="form-overlay" *ngIf="selectedUser">
+    <div class="form-card">
+      <h3>Modify Role: {{ selectedUser.fullName }}</h3>
+      <form [formGroup]="assignForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Select Role</label>
+          <select formControlName="roleName">
+            <option value="" disabled>-- Choose a Role --</option>
+            <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+          </select>
+        </div>
+
+        <div class="form-group" *ngIf="assignForm.get('roleName')?.value === 'DepartmentOfficer'">
+          <label>Assign Department</label>
+          <select formControlName="departmentId">
+            <option [value]="null">-- Select Department --</option>
+            <option *ngFor="let dept of departments" [value]="dept.id">
+              {{ dept.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" [disabled]="assignForm.invalid" class="btn-submit">Save Changes</button>
+          <button type="button" (click)="cancel()" class="btn-cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="table-container shadow-sm">
+    <table mat-table [dataSource]="dataSource" matSort class="user-table">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let user"> {{user.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="fullName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Full Name </th>
+        <td mat-cell *matCellDef="let user"> {{user.fullName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+        <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
+        <td mat-cell *matCellDef="let user"> <span class="role-chip">{{ user.role.name }}</span> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="department">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+        <td mat-cell *matCellDef="let user"> {{ user.department?.name || '—' }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let user">
+          <button class="assign-btn" (click)="openAssignForm(user)">Assign Role</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons aria-label="Select page of users"></mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="auth-container">
+  <mat-card class="auth-card">
+
+    <h1 class="app-title">
+      E-Governance <span>Grievance Redressal Portal</span>
+    </h1>
+
+    <p class="subtitle">Create your account to raise grievances</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Full Name</mat-label>
+        <input matInput formControlName="fullName" />
+        <mat-error *ngIf="form.controls.fullName.invalid">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+        <mat-error *ngIf="form.controls.email.invalid">
+          Enter a valid email
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput type="password" formControlName="confirmPassword" />
+        <mat-error *ngIf="form.errors?.['passwordMismatch']">
+          Passwords do not match
+        </mat-error>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="full-width"
+        [disabled]="form.invalid"
+      >
+        Register
+      </button>
+
+      <p class="switch-auth">
+        Already have an account?
+        <a routerLink="/login">Login</a>
+      </p>
+
+    </form>
+  </mat-card>
+</div>

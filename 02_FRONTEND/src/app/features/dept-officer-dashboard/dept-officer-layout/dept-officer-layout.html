@@ -1,0 +1,38 @@
+<div class="officer-container">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <h2>Officer Portal</h2>
+    </div>
+    
+    <nav class="nav-menu">
+      <a routerLink="grievances-list" routerLinkActive="active-link">
+        Department Grievances
+      </a>
+      <a routerLink="resolution-progress" routerLinkActive="active-link">
+        Resolution Progress
+      </a>
+       <!-- <a routerLink="resolution-status" routerLinkActive="active-link">
+        Resolution Status
+      </a> -->
+      <a routerLink="resolved" routerLinkActive="active-link">
+        Resolved Grievances
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="logout-btn" (click)="onLogout()">
+        Logout
+      </button>
+    </div>
+  </aside>
+
+  <main class="main-workspace">
+    <header class="top-nav">
+      <h1>Department Officer Dashboard</h1>
+    </header>
+    
+    <section class="content-body">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>

@@ -1,0 +1,54 @@
+.auth-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+}
+
+.auth-card {
+  width: 420px;
+  padding: 32px;
+  border-radius: 18px;
+  text-align: center;
+}
+
+.app-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.app-title span {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.subtitle {
+  margin: 12px 0 24px;
+  color: #64748b;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.switch-auth {
+  margin-top: 18px;
+  font-size: 14px;
+}
+
+.switch-auth a {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.switch-auth a:hover {
+  text-decoration: underline;
+}
+

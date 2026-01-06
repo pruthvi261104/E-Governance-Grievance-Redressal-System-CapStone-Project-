@@ -1,0 +1,12 @@
+<div class="reports-container">
+  <nav class="report-nav-tabs">
+    <a routerLink="status-summary" routerLinkActive="active-tab">Status Summary</a>
+    <a routerLink="performance" routerLinkActive="active-tab">Performance Metrics</a>
+    <a routerLink="categories" routerLinkActive="active-tab">Category Wise</a>
+    <a routerLink="departments" routerLinkActive="active-tab">Department Wise</a>
+  </nav>
+
+  <div class="report-content-card">
+    <router-outlet></router-outlet>
+  </div>
+</div>

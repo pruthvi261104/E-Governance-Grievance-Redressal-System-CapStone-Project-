@@ -1,0 +1,70 @@
+<div class="view-container">
+  <div class="header-section">
+    <h2>My Grievances</h2>
+    <p>Track the progress of your submitted issues.</p>
+  </div>
+
+  <div class="filter-section" [hidden]="isLoading || grievances.length === 0">
+    <div class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm" 
+        (input)="applyFilter()" 
+        placeholder="Search by ID, Title, or Status..." 
+        class="search-input"
+      />
+    </div>
+  </div>
+
+  <div class="table-card" [hidden]="isLoading || grievances.length === 0">
+    <table mat-table [dataSource]="dataSource" matSort class="grievance-table">
+      <ng-container matColumnDef="grievanceId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let g"> #{{ g.grievanceId }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Title & Category </th>
+        <td mat-cell *matCellDef="let g">
+          <div class="title-text">{{ g.title }}</div>
+          <small class="cat-text">{{ g.categoryName }}</small>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+        <td mat-cell *matCellDef="let g">
+          <span class="status-badge" [ngClass]="getStatusClass(g.status)">
+            {{ g.status }}
+          </span>
+          <span *ngIf="g.isEscalated" class="escalated-mini">Escalated</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="assignedOfficerName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Officer </th>
+        <td mat-cell *matCellDef="let g" [class.text-muted]="!g.assignedOfficerName">
+          {{ g.assignedOfficerName || 'Not Assigned' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created </th>
+        <td mat-cell *matCellDef="let g"> {{ g.createdAt | date:'shortDate' }} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of grievances"></mat-paginator>
+  </div>
+
+  <div *ngIf="isLoading" class="msg">Loading...</div>
+  <div *ngIf="grievances.length === 0 && !isLoading" class="msg">No grievances found.</div>
+  
+  <div *ngIf="dataSource.filteredData.length === 0 && searchTerm && !isLoading" class="msg">
+    No results matching "{{searchTerm}}"
+  </div>
+</div>

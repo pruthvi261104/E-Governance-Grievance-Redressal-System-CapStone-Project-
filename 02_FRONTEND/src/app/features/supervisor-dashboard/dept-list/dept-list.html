@@ -1,0 +1,79 @@
+<div class="dept-overview">
+  <div class="header-actions">
+    <div class="title-group">
+      <h3>Departmental Grievances Pool</h3>
+      <p>View and manage all issues. Escalated items are pinned to the top.</p>
+    </div>
+
+    <div class="filter-controls">
+      <input type="text" [(ngModel)]="searchTerm" (input)="applyFilters()" placeholder="Search..." class="search-input" />
+      <select [(ngModel)]="selectedStatus" (change)="applyFilters()" class="status-select">
+        <option value="All">All Statuses</option>
+        <option value="Submitted">Submitted</option>
+        <option value="Assigned">Assigned</option>
+        <option value="InReview">In Review</option>
+        <option value="Escalated">Escalated</option>
+        <option value="Resolved">Resolved</option>
+        <option value="Closed">Closed</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="table-card" [hidden]="isLoading">
+    <table mat-table [dataSource]="dataSource" matSort class="data-table">
+
+      <ng-container matColumnDef="grievanceId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let g"> <strong>#{{ g.grievanceId }}</strong> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Title & Category </th>
+        <td mat-cell *matCellDef="let g">
+          <div class="main-text">{{ g.title }}</div>
+          <div class="sub-text">{{ g.categoryName }} ({{ g.departmentName }})</div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+        <td mat-cell *matCellDef="let g">
+          <span class="status-tag" [ngClass]="g.status.toLowerCase()">{{ g.status }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="assignedOfficerName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Current Officer </th>
+        <td mat-cell *matCellDef="let g">
+          <span [class.unassigned]="!g.assignedOfficerName">{{ g.assignedOfficerName || 'Not Assigned' }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="assignAction">
+        <th mat-header-cell *matHeaderCellDef> Assign Action </th>
+        <td mat-cell *matCellDef="let g">
+          <div class="assign-action-container">
+            <select class="assign-dropdown" [(ngModel)]="selectedOfficers[g.grievanceId]" 
+                    [disabled]="g.status === 'Resolved' || g.status === 'Closed'">
+              <option value="" disabled selected>Select Officer</option>
+              <option *ngFor="let off of getOfficersByDepartment(g.departmentName)" [value]="off.id">
+                {{ off.fullName }}
+              </option>
+            </select>
+            <button class="btn-assign" (click)="onAssign(g.grievanceId)"
+                    [disabled]="!selectedOfficers[g.grievanceId] || g.status === 'Resolved' || g.status === 'Closed'">
+              Assign
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.highlight-escalated]="row.status === 'Escalated'"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of grievances"></mat-paginator>
+  </div>
+
+  <div *ngIf="isLoading" class="loader"><div class="spinner"></div></div>
+</div>

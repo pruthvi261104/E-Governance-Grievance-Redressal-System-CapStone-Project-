@@ -1,0 +1,30 @@
+<div class="report-wrapper">
+  <div class="report-header">
+    <h3>Departmental Breakdown</h3>
+    <p>Visualizing total grievance volume across all operational departments.</p>
+  </div>
+
+  <div class="chart-container">
+    <canvas #deptChart></canvas>
+  </div>
+
+  <div class="data-table-container">
+    <div class="table-header">
+      <h4>Data Summary</h4>
+    </div>
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>Department Name</th>
+          <th>Total Grievances</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let label of chart?.data?.labels; let i = index">
+          <td>{{ label }}</td>
+          <td class="count-value">{{ chart?.data?.datasets[0].data[i] }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

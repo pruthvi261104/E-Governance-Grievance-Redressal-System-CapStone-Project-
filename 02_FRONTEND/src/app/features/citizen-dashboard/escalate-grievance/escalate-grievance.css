@@ -1,0 +1,94 @@
+.escalate-container {
+  padding: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.small-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.id {
+  font-weight: bold;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.details small {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.btn-esc {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.confirm {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-size: 12px;
+}
+
+.confirm button {
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.toast {
+  position: fixed;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #10b981;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: 0.3s;
+  z-index: 100;
+}
+
+.toast.show {
+  top: 20px;
+}
+
+.toast.err {
+  background: #ef4444;
+}
+
+.empty {
+  text-align: center;
+  color: #94a3b8;
+  padding: 20px;
+}

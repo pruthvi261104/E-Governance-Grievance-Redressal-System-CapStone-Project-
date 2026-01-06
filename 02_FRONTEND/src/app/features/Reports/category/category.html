@@ -1,0 +1,17 @@
+<div class="category-report-container">
+  <div class="chart-card">
+    <div class="canvas-wrapper">
+      <canvas #categoryChart></canvas>
+    </div>
+  </div>
+
+  <div class="data-breakdown">
+    <h3>Detailed Breakdown</h3>
+    <div class="grid-list">
+      <div class="grid-item" *ngFor="let label of chart?.data?.labels; let i = index">
+        <span class="cat-label">{{ label }}</span>
+        <span class="cat-count">{{ chart?.data?.datasets[0].data[i] }} Cases</span>
+      </div>
+    </div>
+  </div>
+</div>

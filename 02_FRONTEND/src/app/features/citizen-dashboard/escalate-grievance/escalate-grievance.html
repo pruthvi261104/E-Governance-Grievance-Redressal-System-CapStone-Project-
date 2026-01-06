@@ -1,0 +1,28 @@
+<div class="escalate-container">
+  <div class="toast" [class.show]="showToast" [class.err]="isErrorToast">{{ toastMessage }}</div>
+  <div class="header">
+    <h1>Escalate Grievances</h1>
+    <p>If you are not satisfied with a resolution, you can escalate it here.</p>
+  </div>
+
+  <div class="card-stack">
+    <div class="small-card" *ngFor="let g of grievances">
+      <div class="card-info">
+        <span class="id">#{{ g.grievanceId }}</span>
+        <div class="details">
+          <strong>{{ g.title }}</strong>
+          <small>{{ g.categoryName }}</small>
+        </div>
+      </div>
+      <div class="card-btns">
+        <button *ngIf="pendingEscalationId !== g.grievanceId" class="btn-esc" (click)="pendingEscalationId = g.grievanceId">Mark Escalation</button>
+        <div *ngIf="pendingEscalationId === g.grievanceId" class="confirm">
+          <span>Are you sure?</span>
+          <button (click)="onMarkEscalation(g.grievanceId)">Yes</button>
+          <button (click)="pendingEscalationId = null">No</button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="grievances.length === 0 && !isLoading" class="empty">No grievances eligible for escalation.</div>
+  </div>
+</div>

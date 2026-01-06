@@ -1,0 +1,30 @@
+<div class="admin-container">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h3>Admin Panel</h3>
+    </div>
+    
+    <nav>
+      <a routerLink="users" routerLinkActive="active">Users</a>
+      <a routerLink="assign-role" routerLinkActive="active">Assign Role</a>
+      <a routerLink="add-department" routerLinkActive="active">Add Department</a>
+      <a routerLink="add-category" routerLinkActive="active">Add Category</a>
+      <a routerLink="add-role" routerLinkActive="active">Add Role</a>
+      
+    </nav>
+
+    <div class="sidebar-footer">
+      <a (click)="onLogout()" class="logout-btn">Logout</a>
+    </div>
+  </aside>
+
+  <main class="content">
+    <header class="dashboard-header">
+      <h1>Admin Dashboard</h1>
+    </header>
+    
+    <section class="router-content">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>

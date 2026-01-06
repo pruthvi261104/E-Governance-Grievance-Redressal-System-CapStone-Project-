@@ -1,0 +1,102 @@
+<div class="work-portal">
+  <div class="header-section">
+    <h2>Active Resolution Progress</h2>
+    <p class="subtitle">Quickly manage your assigned tasks.</p>
+  </div>
+
+  <div class="table-actions">
+    <div class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm" 
+        (input)="applyFilter()" 
+        placeholder="Search by ID, Title, or Description..." 
+        class="search-input"
+      />
+    </div>
+  </div>
+
+  <div class="table-container shadow-sm" *ngIf="!isLoading">
+    <table mat-table [dataSource]="dataSource" matSort class="work-table" *ngIf="myGrievances.length > 0">
+
+      <ng-container matColumnDef="grievanceId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let g" class="id-cell"> #{{ g.grievanceId }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Details </th>
+        <td mat-cell *matCellDef="let g" class="info-cell">
+          <div class="title-text">{{ g.title }}</div>
+          <div class="desc-text">{{ g.description }}</div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+        <td mat-cell *matCellDef="let g">
+          <span class="status-badge" [ngClass]="g.status.toLowerCase()">{{ g.status }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let g" class="action-cell">
+          <div class="button-group">
+            <button 
+              *ngIf="g.status === 'Assigned'"
+              class="btn-action btn-review" 
+              (click)="onAction(g.grievanceId, 'InReview')">
+              Start Review
+            </button>
+
+            <button 
+              class="btn-action btn-resolve" 
+              (click)="onAction(g.grievanceId, 'Resolved')">
+              Mark Resolved
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.row-review]="row.status === 'InReview'"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of assignments"></mat-paginator>
+
+    <div *ngIf="myGrievances.length === 0" class="empty-state">
+      <div class="empty-icon">📂</div>
+      <p>No active grievances assigned to you for resolution.</p>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loader">
+    <div class="spinner"></div>
+    <p>Updating your work queue...</p>
+  </div>
+
+  <div class="custom-modal-overlay" *ngIf="showRemarkModal">
+    <div class="custom-modal-card shadow-sm">
+      <div class="modal-header">
+        <h3>Submit Resolution Remarks</h3>
+        <p>You can optionally describe how the issue was fixed.</p>
+      </div>
+      
+      <div class="modal-body">
+        <textarea 
+          [(ngModel)]="customRemark" 
+          placeholder="Enter remarks here (Optional)..."
+          class="modal-textarea"
+          rows="4">
+        </textarea>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-cancel" (click)="closeModal()">Cancel</button>
+        <button class="btn-confirm" (click)="confirmResolution()">Confirm & Resolve</button>
+      </div>
+    </div>
+  </div>
+</div>

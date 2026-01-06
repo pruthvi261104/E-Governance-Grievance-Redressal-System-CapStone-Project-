@@ -1,0 +1,50 @@
+<div class="dashboard-container">
+  <div class="toast-container" [class.show]="showToast">
+    <div class="toast-content">
+      <span>✔</span> {{ toastMessage }}
+    </div>
+  </div>
+
+  <h2>Manage System Roles</h2>
+
+  <div class="form-card">
+    <h3>Create New Role</h3>
+    <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Role Name</label>
+        <input type="text" formControlName="name" placeholder="e.g., SupportStaff, Manager">
+        <small *ngIf="roleForm.get('name')?.invalid && roleForm.get('name')?.touched" class="error-text">
+          Role name must be at least 3 characters.
+        </small>
+      </div>
+
+      <button type="submit" [disabled]="roleForm.invalid" class="btn-primary">
+        Add Role
+      </button>
+    </form>
+  </div>
+
+  <div class="table-container shadow-sm">
+    <h3>Existing Roles</h3>
+    
+    <table mat-table [dataSource]="dataSource" matSort class="custom-table">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let role"> {{role.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Role Name </th>
+        <td mat-cell *matCellDef="let role"> 
+          <span class="role-badge">{{ role.name }}</span> 
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of roles"></mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="dept-details-wrapper">
+  <div class="header-section">
+    <div class="header-text">
+      <h2>Officer Directory</h2>
+      <p>Select a department to view its assigned officers and their unique IDs.</p>
+    </div>
+
+    <div class="filter-container">
+      <label for="deptSelect">Filter by Department:</label>
+      <select 
+        id="deptSelect" 
+        [(ngModel)]="selectedDepartment" 
+        (change)="onFilterChange()" 
+        class="custom-select">
+        <option value="All">All Departments</option>
+        <option *ngFor="let dept of departments" [value]="dept">
+          {{ dept }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="table-container" *ngIf="!isLoading">
+    <table class="directory-table">
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Officer Name</th>
+          <th>Department</th>
+          <th>Email Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let officer of filteredList">
+          <td class="id-tag">#{{ officer.id }}</td>
+          <td class="name-text">{{ officer.fullName }}</td>
+          <td>
+            <span class="dept-badge">{{ officer.department?.name || 'Unassigned' }}</span>
+          </td>
+          <td class="email-text">{{ officer.email }}</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div *ngIf="filteredList.length === 0" class="empty-msg">
+      No officers found in the selected department.
+    </div>
+  </div>
+</div>

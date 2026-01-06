@@ -1,0 +1,158 @@
+.view-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-section {
+  margin-bottom: 20px;
+}
+
+.table-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+}
+
+.grievance-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.grievance-table th {
+  background: #f8fafc;
+  padding: 15px;
+  font-size: 13px;
+  color: #64748b;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.grievance-table td {
+  padding: 15px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+}
+
+.title-text {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.cat-text {
+  color: #64748b;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-submitted {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.status-resolved {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status-escalated {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.status-reopened {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.escalated-mini {
+  background: #b91c1c;
+  color: white;
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  margin-left: 5px;
+}
+
+.text-muted {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.msg {
+  text-align: center;
+  padding: 30px;
+  color: #64748b;
+}
+.mat-mdc-header-row {
+  background: #f8fafc;
+}
+
+.mat-mdc-header-cell {
+  padding: 15px !important;
+  font-size: 13px !important;
+  color: #64748b !important;
+  font-weight: 600 !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.mat-mdc-cell {
+  padding: 15px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  font-size: 14px !important;
+}
+
+/* Material Sort Arrows */
+::ng-deep .mat-sort-header-arrow {
+  color: #64748b !important;
+}
+
+.mat-mdc-paginator {
+  border-top: 1px solid #f1f5f9;
+}
+.filter-section {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 12px 10px 38px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.search-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.search-input::placeholder {
+  color: #94a3b8;
+}

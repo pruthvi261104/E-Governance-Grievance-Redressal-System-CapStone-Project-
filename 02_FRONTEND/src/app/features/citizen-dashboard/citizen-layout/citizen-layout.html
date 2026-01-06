@@ -1,0 +1,40 @@
+<div class="citizen-container">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h3>Citizen Portal</h3>
+    </div>
+    
+    <nav class="nav-links">
+      <a routerLink="view-grievances" routerLinkActive="active">
+        My Grievances
+      </a>
+      <a routerLink="lodge-grievance" routerLinkActive="active">
+        Lodge Grievance
+      </a>
+
+      <a routerLink="escalate" routerLinkActive="active">
+        Escalate Grievance
+      </a>
+      
+
+    </nav>
+
+    <div class="sidebar-footer">
+      <button (click)="onLogout()" class="logout-btn">
+        Logout
+      </button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="dashboard-header">
+      <h1>Citizen Dashboard</h1>
+      <app-notification-bell></app-notification-bell>
+    </header>
+
+    <section class="router-content">
+      <router-outlet></router-outlet>
+      
+    </section>
+  </main>
+</div>

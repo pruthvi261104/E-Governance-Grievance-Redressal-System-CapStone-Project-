@@ -1,0 +1,54 @@
+.perf-report-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.report-header h3 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 18px;
+}
+
+.report-header p {
+  margin: 5px 0 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.chart-container {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  height: 400px;
+  position: relative;
+}
+
+.performance-legend {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 15px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.dot.resolved { background-color: #10b981; }
+.dot.pending { background-color: #f59e0b; }

@@ -1,0 +1,41 @@
+.reports-container {
+  padding: 10px;
+}
+
+/* Tab Navigation Styling */
+.report-nav-tabs {
+  display: flex;
+  gap: 20px;
+  border-bottom: 2px solid #e2e8f0;
+  margin-bottom: 24px;
+  background: transparent;
+}
+
+.report-nav-tabs a {
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #64748b;
+  font-weight: 600;
+  font-size: 14px;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+/* Active Tab Highlight */
+.report-nav-tabs a.active-tab {
+  color: #1a3a3a; /* Supervisor Teal */
+  border-bottom-color: #1a3a3a;
+}
+
+.report-nav-tabs a:hover:not(.active-tab) {
+  color: #334155;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.report-content-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  min-height: 500px;
+}

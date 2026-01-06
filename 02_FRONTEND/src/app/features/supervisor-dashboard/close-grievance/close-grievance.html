@@ -1,0 +1,97 @@
+<div class="close-container">
+  <div class="toast" [class.show]="showToast" [class.error-toast]="isErrorToast">
+    {{ toastMessage }}
+  </div>
+
+  <div class="header">
+    <h1>Administrative Case Closure</h1>
+    <p>Perform final review and provide feedback for resolved grievances.</p>
+  </div>
+
+  <div class="search-section" *ngIf="grievances.length > 0 && !isLoading">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm" 
+        (input)="applyFilter()" 
+        placeholder="Filter by ID, Issue Title or Status..."
+        class="search-input"
+      />
+    </div>
+  </div>
+
+  <div class="table-wrapper shadow-sm" [hidden]="isLoading || grievances.length === 0">
+    <table mat-table [dataSource]="dataSource" matSort class="modern-table">
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+        <td mat-cell *matCellDef="let g">
+          <span class="status-badge" [ngClass]="g.status.toLowerCase()">{{ g.status }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="grievanceId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let g">
+          <span class="id-tag">#{{ g.grievanceId }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Details </th>
+        <td mat-cell *matCellDef="let g">
+          <div class="text-content">
+            <strong class="title">{{ g.title }}</strong>
+            <span class="dept-tag">Dept: {{ g.departmentName }}</span>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let g">
+          <button class="btn-action-close" (click)="openCloseModal(g.grievanceId)">
+            <span class="icon">🔒</span>
+            <span class="label">Close Case</span>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons aria-label="Select page of grievances"></mat-paginator>
+  </div>
+
+  <div *ngIf="grievances.length === 0 && !isLoading" class="empty-state">
+    No grievances are currently pending administrative closure.
+  </div>
+
+  <div *ngIf="isLoading" class="loader">
+    <div class="spinner"></div>
+    <p>Loading grievances for review...</p>
+  </div>
+
+  <div class="custom-modal-overlay" *ngIf="showFeedbackModal">
+    <div class="custom-modal">
+      <div class="modal-header">
+        <h3>Confirm Case Closure</h3>
+        <button class="close-x" (click)="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Would you like to provide final feedback for Grievance <strong>#{{selectedGrievanceId}}</strong> before closing?</p>
+        <textarea 
+          [(ngModel)]="feedbackText" 
+          placeholder="Enter final closure feedback (optional)..."
+          class="feedback-textarea">
+        </textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="closeModal()">Cancel</button>
+        <button class="btn-primary-close" (click)="onConfirmCloseWithFeedback()">Confirm & Close</button>
+      </div>
+    </div>
+  </div>
+</div>

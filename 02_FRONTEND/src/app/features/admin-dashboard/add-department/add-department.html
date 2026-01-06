@@ -1,0 +1,47 @@
+<div class="dashboard-container">
+  <div class="toast-container" [class.show]="showToast">
+    <div class="toast-content">✔ {{ toastMessage }}</div>
+  </div>
+
+  <header class="page-header">
+    <h2>Manage Departments</h2>
+  </header>
+
+  <div class="form-card">
+    <h3>Create New Department</h3>
+    <form [formGroup]="deptForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Department Name</label>
+        <input type="text" id="name" formControlName="name" placeholder="e.g. Water Supply, Health">
+        <small *ngIf="deptForm.get('name')?.invalid && deptForm.get('name')?.touched" class="error">
+          Valid name is required.
+        </small>
+      </div>
+      <button type="submit" [disabled]="deptForm.invalid" class="btn-primary">Create Department</button>
+    </form>
+  </div>
+
+  <div class="table-container shadow-sm">
+    <table mat-table [dataSource]="dataSource" matSort class="custom-table">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let dept"> {{dept.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Department Name </th>
+        <td mat-cell *matCellDef="let dept"> {{dept.name}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell text-center" colspan="2">No departments found.</td>
+      </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of departments"></mat-paginator>
+  </div>
+</div>
